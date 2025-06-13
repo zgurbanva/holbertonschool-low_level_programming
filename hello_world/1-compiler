@@ -1,7 +1,3 @@
-cat << 'EOF' > 1-compiler
 #!/bin/bash
+gcc -c "$CFILE" -o "${CFILE%.c}.o"
 
-base_name="\${CFILE%.*}"
-
-gcc -S "\$CFILE" -o "\${base_name}.s"
-EOF
