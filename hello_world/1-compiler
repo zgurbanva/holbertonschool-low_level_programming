@@ -1,0 +1,7 @@
+cat << 'EOF' > 1-compiler
+#!/bin/bash
+
+base_name="\${CFILE%.*}"
+
+gcc -S "\$CFILE" -o "\${base_name}.s"
+EOF
