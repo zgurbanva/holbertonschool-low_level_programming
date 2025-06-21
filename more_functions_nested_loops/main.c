@@ -12,5 +12,6 @@ int main(void)
     more_numbers();
     print_line(0);
     print_line(10);
+    print_diagonal(5);
     return 0;
 }
