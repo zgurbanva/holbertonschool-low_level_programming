@@ -7,35 +7,46 @@
  * Return: the converted integer, or 0 if no digits found
  *
  * Description:
- *  - Skips all non-digit characters until it finds digits or signs
- *  - Counts the number of '-' signs to determine the sign of the number
- *  - Converts subsequent digits to int until a non-digit is found
- *  - If no digits, returns 0
+ *  - Handles multiple leading '+' and '-' signs
+ *  - Converts digits until non-digit found
+ *  - Uses unsigned int to avoid overflow during accumulation
+ *  - Correctly handles INT_MIN (-2147483648)
  */
 int _atoi(char *s)
 {
-	int i = 0, sign = 1, num = 0, found_digit = 0;
+	unsigned int num = 0;
+	int sign = 1, i = 0, found_digit = 0;
 
 	while (s[i] != '\0')
 	{
 		if (s[i] == '-')
 			sign *= -1;
 		else if (s[i] == '+')
-		{
-			/* sign unchanged */
-		}
+			; /* ignore plus sign */
 		else if (s[i] >= '0' && s[i] <= '9')
 		{
 			found_digit = 1;
 			num = num * 10 + (s[i] - '0');
 		}
 		else if (found_digit)
-			break; /* digits ended */
+			break;
 		i++;
 	}
 
 	if (!found_digit)
-		return 0;
+		return (0);
 
-	return sign * num;
+	if (sign == -1)
+	{
+		if (num == 2147483648U)
+			return (-2147483648);
+		if (num > 2147483648U)
+			return (0);
+		return (-(int)num);
+	}
+
+	if (num > 2147483647U)
+		return (2147483647);
+
+	return ((int)num);
 }
