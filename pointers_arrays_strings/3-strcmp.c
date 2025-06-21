@@ -5,7 +5,7 @@
  * @s1: first string to compare
  * @s2: second string to compare
  *
- * Return: 
+ * Return:
  *   0 if s1 and s2 are equal,
  *   positive value if s1 > s2,
  *   negative value if s1 < s2
