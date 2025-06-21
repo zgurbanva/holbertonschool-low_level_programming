@@ -1,18 +1,26 @@
-#include <stdio.h>
+#include <unistd.h>
 
 /**
- * puts2 - Prints every other character of a string,
- *         starting with the first character,
- *         followed by a new line.
- * @str: Pointer to the input string.
+ * puts_half - prints the second half of a string, followed by a new line
+ * @str: string to be printed from its half
+ *
+ * Description: If the string length is odd, prints the last (length + 1) / 2 characters.
+ *              If the string length is even, prints the last half of the string.
  */
-void puts2(char *str)
+void puts_half(char *str)
 {
-    int i;
+	int length = 0, start;
 
-    for (i = 0; str[i] != '\0'; i += 2)
-    {
-        printf("%c", str[i]);
-    }
-    printf("\n");
+	/* Calculate the length of the string */
+	while (str[length] != '\0')
+		length++;
+
+	/* Calculate the starting index for the second half */
+	start = (length + 1) / 2;
+
+	/* Write the second half of the string */
+	write(1, str + start, length - start);
+
+	/* Write a newline character */
+	write(1, "\n", 1);
 }
