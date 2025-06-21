@@ -13,5 +13,6 @@ int main(void)
     print_line(0);
     print_line(10);
     print_diagonal(5);
+    print_triangle(5);
     return 0;
 }
