@@ -4,9 +4,9 @@
 /**
  * create_array - Creates an array of chars and initializes it with a specific char
  * @size: The size of the array
- * @c: The char to initialize the array with
+ * @c: The character to initialize the array with
  *
- * Return: Pointer to the array, or NULL if it fails or size is 0
+ * Return: Pointer to the array, or NULL if size is 0 or if memory allocation fails
  */
 char *create_array(unsigned int size, char c)
 {
