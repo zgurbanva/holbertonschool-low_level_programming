@@ -1,6 +1,14 @@
 #ifndef CALC_H
 #define CALC_H
 
+/**
+ * struct op - Struct op
+ * @op: The operator string
+ * @f: The function associated with the operator
+ *
+ * Description: Used to associate an operator symbol with a function
+ *              that performs the corresponding arithmetic operation.
+ */
 typedef struct op
 {
 	char *op;
