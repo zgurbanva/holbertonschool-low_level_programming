@@ -3,17 +3,11 @@
 #include "3-calc.h"
 
 /**
- * main - Entry point
+ * main - Entry point for calculator program
  * @argc: Argument count
  * @argv: Argument vector
  *
- * Return: 0 on success, or exit with status on error
- *
- * Rules:
- * - No direct calls to op_add, op_sub, op_mul, op_div, op_mod
- * - Use get_op_func to get the function pointer
- * - No loops allowed
- * - Max 3 if statements allowed
+ * Return: 0 on success, or exits with error code on failure
  */
 int main(int argc, char *argv[])
 {
@@ -36,7 +30,6 @@ int main(int argc, char *argv[])
 	num1 = atoi(argv[1]);
 	num2 = atoi(argv[3]);
 
-	/* Check division/modulo by zero */
 	if ((argv[2][0] == '/' || argv[2][0] == '%') && num2 == 0)
 	{
 		printf("Error\n");

@@ -2,28 +2,27 @@
 #include <stddef.h>
 
 /**
- * get_op_func - Selects the correct operation function
- * @s: The operator as string
+ * get_op_func - Selects the correct function for the given operator
+ * @s: Operator string
  *
- * Return: Pointer to the function corresponding to the operator, or NULL if not found
- *
- * Restrictions:
- * - No switch, no for/do/while loops, no goto, no else
- * - Only one if statement and one while loop allowed
+ * Return: Pointer to the function that corresponds to the operator, or NULL if none
  */
 int (*get_op_func(char *s))(int, int)
 {
+	op_t ops[] = {
+		{"+", op_add},
+		{"-", op_sub},
+		{"*", op_mul},
+		{"/", op_div},
+		{"%", op_mod},
+		{NULL, NULL}
+	};
 	int i = 0;
 
-	/* Array of operators and corresponding functions */
-	char ops[] = {'+', '-', '*', '/', '%'};
-	int (*functions[])(int, int) = {op_add, op_sub, op_mul, op_div, op_mod};
-
-	/* One while loop to check operators */
-	while (i < 5)
+	while (ops[i].op)
 	{
-		if (s[0] == ops[i] && s[1] == '\0')
-			return (functions[i]);
+		if (s[0] == ops[i].op[0] && s[1] == '\0')
+			return (ops[i].f);
 		i++;
 	}
 	return (NULL);
