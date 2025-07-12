@@ -4,52 +4,48 @@
 
 /**
  * print_all - Prints anything based on format string.
- * @format: List of types of arguments passed to the function.
- *          c: char, i: int, f: float, s: char *.
+ * @format: A list of types of arguments passed to the function.
  *
- * Description: If string is NULL, prints (nil).
- *              Ignores unknown format chars.
- *              Prints a newline at the end.
- *              Max 2 while loops, 2 ifs, 9 vars.
+ * Description:
+ * c: char
+ * i: integer
+ * f: float
+ * s: char * (if NULL, print (nil))
+ * Any other character is ignored.
+ * Prints a newline at the end.
  */
 void print_all(const char * const format, ...)
 {
 	va_list args;
 	unsigned int i = 0;
-	char *str;
-	char *separator = "";
+	char *str, *sep = "";
 
 	va_start(args, format);
 
-	while (format != NULL && format[i] != '\0')
+	while (format && format[i])
 	{
-		if (format[i] == 'c')
+		switch (format[i])
 		{
-			printf("%s%c", separator, va_arg(args, int));
-			separator = ", ";
+			case 'c':
+				printf("%s%c", sep, va_arg(args, int));
+				break;
+			case 'i':
+				printf("%s%d", sep, va_arg(args, int));
+				break;
+			case 'f':
+				printf("%s%f", sep, va_arg(args, double));
+				break;
+			case 's':
+				str = va_arg(args, char *);
+				if (!str)
+					str = "(nil)";
+				printf("%s%s", sep, str);
+				break;
+			default:
+				i++;
+				continue;
 		}
-
-		if (format[i] == 'i')
-		{
-			printf("%s%d", separator, va_arg(args, int));
-			separator = ", ";
-		}
-
-		if (format[i] == 'f')
-		{
-			printf("%s%f", separator, va_arg(args, double));
-			separator = ", ";
-		}
-
-		if (format[i] == 's')
-		{
-			str = va_arg(args, char *);
-			if (str == NULL)
-				str = "(nil)";
-			printf("%s%s", separator, str);
-			separator = ", ";
-		}
-
+		sep = ", ";
 		i++;
 	}
 
