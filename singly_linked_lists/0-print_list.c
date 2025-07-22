@@ -9,7 +9,7 @@
  */
 unsigned int _strlen(const char *s)
 {
-    unsigned int i = 0;
+	unsigned int i = 0;
 
     while (s && s[i])
         i++;
