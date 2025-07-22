@@ -6,11 +6,13 @@
 /**
  * struct list_s - singly linked list node
  * @str: string - malloc'ed string
- * @next: points to the next node
+ * @len: length of the string
+ * @next: pointer to the next node
  */
 typedef struct list_s
 {
     char *str;
+    unsigned int len;
     struct list_s *next;
 } list_t;
 

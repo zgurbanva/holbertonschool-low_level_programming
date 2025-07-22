@@ -1,37 +1,26 @@
 #include "lists.h"
-#include <stdio.h>
 #include <string.h>
+#include <stdio.h>
 
 /**
- * print_list - prints all the elements of a list_t list
- * @h: pointer to head of the list
- *
- * Return: number of nodes
+ * _strlen - returns length of a string
+ * @s: input string
+ * Return: length of string
  */
-size_t print_list(const list_t *h)
+unsigned int _strlen(const char *s)
 {
-    size_t count = 0;
+    unsigned int i = 0;
 
-    while (h)
-    {
-        if (h->str)
-            printf("%s\n", h->str);
-        else
-            printf("(nil)\n");
-
-        h = h->next;
-        count++;
-    }
-
-    return (count);
+    while (s && s[i])
+        i++;
+    return (i);
 }
 
 /**
- * add_node - adds a new node at the beginning of a list_t list
- * @head: double pointer to the head of the list
- * @str: string to store in the new node
- *
- * Return: address of the new element, or NULL if it failed
+ * add_node - adds a new node at the beginning of list_t
+ * @head: pointer to pointer to head
+ * @str: string to store in node
+ * Return: pointer to new node
  */
 list_t *add_node(list_t **head, const char *str)
 {
@@ -48,8 +37,32 @@ list_t *add_node(list_t **head, const char *str)
         return (NULL);
     }
 
+    new->len = _strlen(str);
     new->next = *head;
     *head = new;
 
     return (new);
+}
+
+/**
+ * print_list - prints all elements of a list_t list
+ * @h: pointer to head
+ * Return: number of nodes
+ */
+size_t print_list(const list_t *h)
+{
+    size_t count = 0;
+
+    while (h)
+    {
+        if (h->str)
+            printf("[%u] %s\n", h->len, h->str);
+        else
+            printf("[0] (nil)\n");
+
+        h = h->next;
+        count++;
+    }
+
+    return (count);
 }
