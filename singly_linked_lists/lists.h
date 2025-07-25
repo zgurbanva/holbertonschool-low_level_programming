@@ -2,6 +2,7 @@
 #define LISTS_H
 
 #include <stdlib.h>
+
 /**
  * struct list_s - singly linked list node
  * @str: string - malloc'ed string
@@ -10,14 +11,15 @@
  */
 typedef struct list_s
 {
-    char *str;
-    unsigned int len;
-    struct list_s *next;
+	char *str;
+	unsigned int len;
+	struct list_s *next;
 } list_t;
 
 int _putchar(char c);
 size_t print_list(const list_t *h);
-int _strlen(const char *s);
-list_t *add_node(list_t **head, const char *str);
 size_t list_len(const list_t *h);
+unsigned int _strlen(const char *s);
+list_t *add_node(list_t **head, const char *str);
+
 #endif
