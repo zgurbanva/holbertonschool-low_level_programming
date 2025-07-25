@@ -2,25 +2,25 @@
 #include <string.h>
 
 /**
- * _strlen - Calculates the length of a string
- * @s: The string to measure
+ * _strlen - Returns the length of a string
+ * @s: The string
  *
  * Return: Length of the string
  */
-int _strlen(const char *s)
+unsigned int _strlen(const char *s)
 {
-	int len = 0;
+	unsigned int i = 0;
 
-	while (s[len])
-		len++;
+	while (s[i])
+		i++;
 
-	return (len);
+	return (i);
 }
 
 /**
  * add_node - Adds a new node at the beginning of a list_t list
- * @head: Pointer to the head of the list
- * @str: String to add in the new node
+ * @head: Double pointer to the head of the list
+ * @str: String to store in the new node (must be duplicated)
  *
  * Return: Address of the new element, or NULL if it failed
  */
