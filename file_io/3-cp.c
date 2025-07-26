@@ -5,8 +5,8 @@
 #include <unistd.h>
 
 /**
- * close_file - Closes a file descriptor
- * @fd: The file descriptor to close
+ * close_file - Closes a file descriptor.
+ * @fd: The file descriptor to be closed.
  */
 void close_file(int fd)
 {
@@ -22,15 +22,15 @@ void close_file(int fd)
 }
 
 /**
- * main - Copies the contents of a file to another file
- * @argc: Number of arguments
- * @argv: Array of arguments
+ * main - Copies the contents of a file to another file.
+ * @argc: Argument count.
+ * @argv: Argument vector (file_from and file_to).
  *
- * Return: 0 on success
+ * Return: 0 on success, otherwise exits with specified codes.
  */
 int main(int argc, char *argv[])
 {
-	int from, to, r, w;
+	int from_fd, to_fd, r_bytes, w_bytes;
 	char buffer[1024];
 
 	if (argc != 3)
@@ -40,46 +40,46 @@ int main(int argc, char *argv[])
 		exit(97);
 	}
 
-	from = open(argv[1], O_RDONLY);
-	if (from == -1)
+	from_fd = open(argv[1], O_RDONLY);
+	if (from_fd == -1)
 	{
 		dprintf(STDERR_FILENO,
 			"Error: Can't read from file %s\n", argv[1]);
 		exit(98);
 	}
 
-	to = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
-	if (to == -1)
+	to_fd = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
+	if (to_fd == -1)
 	{
 		dprintf(STDERR_FILENO,
 			"Error: Can't write to %s\n", argv[2]);
-		close_file(from);
+		close_file(from_fd);
 		exit(99);
 	}
 
-	while ((r = read(from, buffer, 1024)) > 0)
+	while ((r_bytes = read(from_fd, buffer, 1024)) > 0)
 	{
-		w = write(to, buffer, r);
-		if (w != r)
+		w_bytes = write(to_fd, buffer, r_bytes);
+		if (w_bytes == -1 || w_bytes != r_bytes)
 		{
 			dprintf(STDERR_FILENO,
 				"Error: Can't write to %s\n", argv[2]);
-			close_file(from);
-			close_file(to);
+			close_file(from_fd);
+			close_file(to_fd);
 			exit(99);
 		}
 	}
-	if (r == -1)
+	if (r_bytes == -1)
 	{
 		dprintf(STDERR_FILENO,
 			"Error: Can't read from file %s\n", argv[1]);
-		close_file(from);
-		close_file(to);
+		close_file(from_fd);
+		close_file(to_fd);
 		exit(98);
 	}
 
-	close_file(from);
-	close_file(to);
+	close_file(from_fd);
+	close_file(to_fd);
 
 	return (0);
 }
